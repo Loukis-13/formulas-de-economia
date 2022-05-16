@@ -1,0 +1,17 @@
+#!/bin/python3
+
+import argparse
+
+parser = argparse.ArgumentParser(
+    description="Calcula o valor da taxa real.",
+    epilog="FORMULA: ( (1 + IN/100) / (1 + I/100) -1 ) * 100",
+)
+
+parser.add_argument("IN", type=float, help="Taxa de juros nominal em porcentagem")
+parser.add_argument("I", type=float, help="Taxa de inflação em porcentagem")
+
+parser.add_argument("-n", type=int, default=4, help="Número de casas decimais")
+
+args = parser.parse_args()
+
+print(f"{(1+args.IN/100)/(1+args.I/100)-1 :.{args.n}%}")

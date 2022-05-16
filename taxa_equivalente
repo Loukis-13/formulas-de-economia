@@ -1,0 +1,19 @@
+#!/bin/python3
+
+import argparse
+
+parser = argparse.ArgumentParser(
+    description="Calcula a equivalência de taxas.",
+    epilog="FORMULA: ( (1 + it/100)**(Q/T) -1 ) * 100",
+)
+
+parser.add_argument("it", type=float, help="Taxa do período que se tem")
+# parser.add_argument("iq", type=float, help="Taxa do período que se quer")
+parser.add_argument("T", type=int, help="Prazo da taxa que se tem")
+parser.add_argument("Q", type=int, help="Prazo da taxa que se quer")
+
+parser.add_argument("-n", type=int, default=4, help="Número de casas decimais")
+
+args = parser.parse_args()
+
+print(f"{((1+args.it/100)**(args.Q/args.T)-1)*100 :.{args.n}%}")
