@@ -1,17 +1,22 @@
 #!/bin/python3
 
-import argparse
+def taxa_efetiva(I, Q):
+    return (1+(I/100)/Q)**Q-1
 
-parser = argparse.ArgumentParser(
-    description="Calculo da taxa efetiva",
-    epilog="FORMULA: ( (1 + (i/100) / q)**q-1 ) * 100",
-)
 
-parser.add_argument("I", type=float, help="Taxa")
-parser.add_argument("Q", type=float, help="Periodo")
+if __name__ == "__main__":
+    import argparse
 
-parser.add_argument("-n", type=int, default=4, help="Número de casas decimais")
+    parser = argparse.ArgumentParser(
+        description="Calculo da taxa efetiva",
+        epilog="FORMULA: ( (1 + (i/100) / q)**q-1 ) * 100",
+    )
 
-args = parser.parse_args()
+    parser.add_argument("I", type=float, help="Taxa")
+    parser.add_argument("Q", type=float, help="Periodo")
 
-print(f"{ (1+(args.I/100)/args.Q)**args.Q-1 :.{args.n}%}")
+    parser.add_argument("-n", type=int, default=4, help="Número de casas decimais")
+
+    args = parser.parse_args()
+
+    print(f"{ taxa_efetiva(args.I, args.Q) :.{args.n}%}")

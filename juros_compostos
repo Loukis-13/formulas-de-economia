@@ -1,12 +1,32 @@
 #!/bin/python3
 
-import argparse
 from math import log
 
-parser = argparse.ArgumentParser(
-    formatter_class=argparse.RawDescriptionHelpFormatter,
-    description="Calculo de juros compostos",
-    epilog="""\
+
+def juros_compostos(PV: float = None, FV: float = None, I: float = None, N: int = None) -> float:
+    if PV and I and N:
+        # calcula FV
+        return PV * (1 + I/100)**N
+    elif FV and I and N:
+        # calcula PV
+        return FV/(1+I/100)**N
+    elif PV and FV and N:
+        # calcula I
+        return (FV/PV)**(1/N)-1
+    elif PV and FV and I:
+        # calcula N
+        return log(FV/PV)/log(1+I/100)
+    else:
+        raise "Deve-se passar no mínimo três argumentos"
+
+
+if __name__ == "__main__":
+    import argparse
+
+    parser = argparse.ArgumentParser(
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        description="Calculo de juros compostos",
+        epilog="""\
 EXEMPLOS:
     calcular valor final
     $ juros_compostos -PV 400 -I 5 -N 3
@@ -29,32 +49,22 @@ FORMULAS:
     PV = FV / (1 + I/100)**N
     I  = (FV/PV)**(1/N)
     N  = log(FV/PV) / log(1 + I/100)
-""",
-)
+    """,
+    )
 
-parser.add_argument("-PV", type=float, help="(Present Value) Valor presente antes do calculo de juros")
-parser.add_argument("-FV", type=float, help="(Final Value) Valor final do calculo de juros")
-parser.add_argument("-I", type=float, help="Taxa de juros em porcentagem")
-parser.add_argument("-N", type=int, help="Periodo que será aplicado")
+    parser.add_argument(
+        "-PV", type=float, help="(Present Value) Valor presente antes do calculo de juros")
+    parser.add_argument("-FV", type=float,
+                        help="(Final Value) Valor final do calculo de juros")
+    parser.add_argument("-I", type=float, help="Taxa de juros em porcentagem")
+    parser.add_argument("-N", type=int, help="Periodo que será aplicado")
 
-parser.add_argument("-n", type=int, default=4, help="Número de casas decimais")
+    parser.add_argument("-n", type=int, default=2,
+                        help="Número de casas decimais")
 
-args = parser.parse_args()
+    args = parser.parse_args()
 
-# globals().update(args.__dict__)
-PV, FV, I, N = args.PV, args.FV, args.I, args.N
-
-# calcula FV
-if PV and I and N:
-    print(f"{ PV*(1+I/100)**N :.{args.n}f}")
-# calcula PV
-elif FV and I and N:
-    print(f"{ FV/(1+I/100)**N :.{args.n}f}")
-# calcula I
-elif PV and FV and N:
-    print(f"{ (FV/PV)**(1/N)-1 :.{args.n}%}")
-# calcula N
-elif PV and FV and I:
-    print(f"{ log(FV/PV)/log(1+I/100) :.0f}")
-else:
-    parser.print_help()
+    try:
+        print(f"{ juros_compostos(PV=args.PV, FV=args.FV, I=args.I, N=args.N) :.{args.n}f}")
+    except:
+        parser.print_help()
