@@ -1,6 +1,7 @@
 #!/bin/python3
 
-def taxa_real(IN, I):
+def taxa_real(IN: float, I: float) -> float:
+    """ ( (1 + IN/100) / (1 + I/100) -1 ) * 100 """
     return (1+IN/100)/(1+I/100)-1
 
 

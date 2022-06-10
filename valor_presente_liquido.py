@@ -5,6 +5,7 @@ from typing import List
 
 
 def valor_presente_liquido(FCO: float, FC: List[float], I: float) -> float:
+    """ sum(FC[i]/(1+I/100)**i for i in range(1,len(FC)+1)) - FCO """
     return sum(v/(1+I/100)**i for i, v in enumerate(FC, 1)) - FCO
 
 def TIR(FCO: float, FC: List[float]) -> float:

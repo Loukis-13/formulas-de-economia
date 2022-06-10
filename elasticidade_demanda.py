@@ -1,6 +1,6 @@
 #!/bin/python3
 
-def elasticidade_demanda(Q1, Q2, P1, P2):
+def elasticidade_demanda(Q1: float, Q2: float, P1: float, P2: float) -> float:
 	""" (Q2/Q1-1) / (P2/P1-1) """
 	return (Q2/Q1-1)/(P2/P1-1)
 

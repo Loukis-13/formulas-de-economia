@@ -1,6 +1,7 @@
 #!/bin/python3
 
-def taxa_efetiva(I, Q):
+def taxa_efetiva(I: float, Q: float) -> float:
+    """ ( (1 + (i/100) / q)**q-1 ) * 100 """
     return (1+(I/100)/Q)**Q-1
 
 

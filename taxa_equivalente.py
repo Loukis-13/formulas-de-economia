@@ -1,6 +1,6 @@
 #!/bin/python3
 
-def taxa_equivalente(it, Q, T):
+def taxa_equivalente(it: float, Q: int, T: int) -> float:
     """ ( (1 + it/100)**(Q/T) -1 ) * 100 """
     return ((1+it/100)**(Q/T)-1)*100
 
@@ -14,7 +14,6 @@ if __name__ == "__main__":
     )
 
     parser.add_argument("it", type=float, help="Taxa do período que se tem")
-    # parser.add_argument("iq", type=float, help="Taxa do período que se quer")
     parser.add_argument("T", type=int, help="Prazo da taxa que se tem")
     parser.add_argument("Q", type=int, help="Prazo da taxa que se quer")
 
